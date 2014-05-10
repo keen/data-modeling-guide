@@ -1,2 +1,2 @@
-Data Modeling for B2B Software
-==============================
+Data Modeling for SaaS/B2B Apps
+===============================
