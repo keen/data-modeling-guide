@@ -18,7 +18,7 @@ device_activation = {
 ### Device Purchases
 
 ```
-device_order = {
+device_purchase = {
   "user": {
     "email": "michelle@keen.io"
   },
