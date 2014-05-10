@@ -87,15 +87,18 @@ account_change = {
 
 ```
 purchase = {
-  "user": {
-    "email": "timmy@coolstuff.co",
-    "id" : "92379hasdbc9377435",
-    "title" : "Boss",
-    "company" : "Cool Stuff, Inc.",
-    "type" : "referral"
-  },
-  "product": "Coffee Mug Warming Plate"
-  "price_cents": 2599
+  "item": "sophisticated orange turtleneck with deer on it",
+  "cost": 469.50,
+  "payment_method": "Bank Simple VISA",
+  "customer": {
+    "id": 233255,
+    "name": "Francis Woodbury",
+    "age": 28,
+    "address": {
+      "city": "San Francisco",
+      "country": "USA"
+    }
+  }
 }
 ```
 
