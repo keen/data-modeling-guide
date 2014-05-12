@@ -107,7 +107,7 @@ Properties are pieces of information that describe an event and relevant informa
 
 When we talk about events and their properties, we are starting to dig into the art of data science. There is no prescription for what events you should record and what properties will be important for your unique application. Rather, you need to think creatively about what information is important to you now and what might be important in the future.
 
-While we believe that it can’t hurt to have too much information, there are some practical limits we have in place. There cannot be more than 1,000 properties per Event Collection. This is usually caused by the dynamic naming of properties. For example, creating a property whose name is the current time. This will create a new property for every event you send since they will be recorded at different times!
+While we believe that it can’t hurt to have too much information, it's important to be careful with your property names (especially when creating them dynamicallyh). For example, creating a property whose name is the current time will create a new property for _every single event_ you send since they will be recorded at different times!
 
 Here are some things to consider capturing as event properties:
 
