@@ -124,11 +124,19 @@ Feel free to add or remove events and properties from your code at any time. Kee
 
 Properties all have a name and a value. While they can have almost any name, there are a few rules to follow:
 
+### Property Name Rules
+
 1. Must be less than 256 characters long.
 2. A dollar sign ($) cannot be the first character.
 3. There cannot be any periods (.) in the name.
 4. Cannot be a null value.
 
+### Property Value Rules
+
+1. String values must be less than 10,000 characters long.
+2. Numeric values must be between -2^63 (-9223372036854775808) and 2^63 - 1 (9223372036854775807) (inclusive).
+3. Values in lists must themselves follow the above rules.
+4. Values in dictionaries must themselves follow the above rules.
 
 ### Property Hierarchy
 
