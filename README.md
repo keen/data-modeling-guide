@@ -268,3 +268,45 @@ Here’s an example of a “checkin” event which includes the location propert
   "place": "Urbana party house"
 }
 ```
+
+### Lists of Objects
+
+If you're adding events that contain lists of objects, be aware that there isn't currently a way to query properties of those objects via the workbench or API. There are, however, a few ways to work around this.
+
+#### Indexed Properties
+
+You can copy properties in the object list out to a set of indexed properties before you send the event. This results in properties like `pour_1_amount`, `pour_2_amount` up to `pour_n_amount`.
+
+If you do this, you should add a `number_of_pours` property that represents the size of the `pours` list. When you're ready to analyze, first query to get the maximum `number_of_pours` over the range of events. This will be an input into a loop you will run to analyze each indexed property.
+
+Let's say you want to find the total amount of all pours. Here's how'd do that using Ruby and [keen-gem](https://github.com/keenlabs/keen-gem), though the concept applies generally.
+
+``` ruby
+# within an irb session
+require 'keen'   
+
+# get the maximum number of pours to check
+maximum_pours_length = 
+  Keen.maximum('collection', target_property: 'number_of_pours')
+
+# total pour amount
+total_pour_amount = 0
+
+for n in maximum_pours_length
+total_pour_amount = total_pour_amount + 
+Keen.sum('collection', target_property: "pour_#{n}_amount")
+end
+
+# print the total
+puts total_pour_amount
+```
+
+`total_pour_amount` will contain the sum of all pour amounts for each list item of each event.
+
+#### Pre-aggregate Properties
+
+You can aggregate (a.k.a. reduce) all instances of the property down to one: e.g. `total_pour_amount`, `maximum_pour_end_time`, etc. This requires you to know what analysis you want to do in advance, but you can then use Keen for all the querying.
+
+#### Extraction w/ client side processing
+
+You can perform an [extraction](https://keen.io/docs/data-analysis/extractions/), and do manual processing on your side. To make the extraction faster you can limit it to [certain properties](https://keen.io/docs/data-analysis/extractions/#extract-certain-properties). This option keeps the data model the cleanest, but it does require more work at query time because Keen won't be doing the aggregation. Projects like [Miso Dataset](http://misoproject.com/dataset/api/index.html) can make some of that work easier.
